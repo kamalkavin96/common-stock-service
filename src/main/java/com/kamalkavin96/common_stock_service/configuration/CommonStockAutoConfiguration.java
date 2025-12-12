@@ -1,6 +1,7 @@
 package com.kamalkavin96.common_stock_service.configuration;
 
 import com.kamalkavin96.common_stock_service.controller.AppInfoController;
+import com.kamalkavin96.common_stock_service.controller.MetricsController;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -27,4 +28,8 @@ public class CommonStockAutoConfiguration {
     public AppInfoController appInfoController(){
         return new AppInfoController();
     }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public MetricsController metricsController(){ return new MetricsController();}
 }
