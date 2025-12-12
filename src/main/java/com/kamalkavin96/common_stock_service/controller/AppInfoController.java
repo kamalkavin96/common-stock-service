@@ -1,6 +1,6 @@
 package com.kamalkavin96.common_stock_service.controller;
 
-import com.kamalkavin96.common_stock_service.service.MetricsService;
+import com.kamalkavin96.common_stock_service.service.MetricsServiceCommon;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +16,7 @@ public class AppInfoController {
     private final Instant startTime = Instant.now();
 
     @Autowired
-    private MetricsService metricsService;
+    private MetricsServiceCommon metricsService;
 
 
     @GetMapping("/info")
