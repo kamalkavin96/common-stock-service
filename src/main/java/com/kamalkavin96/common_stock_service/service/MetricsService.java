@@ -1,22 +1,21 @@
-package com.kamalkavin96.common_stock_service.controller;
-
+package com.kamalkavin96.common_stock_service.service;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.lang.management.*;
 import java.nio.file.FileStore;
 import java.nio.file.FileSystems;
 import java.time.Instant;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
-@RestController
-@RequestMapping("/api/app")
-public class MetricsController {
+public class MetricsService {
+
 
     @Autowired
     private MeterRegistry meterRegistry;
@@ -26,11 +25,9 @@ public class MetricsController {
     @Autowired(required = false)
     private BuildProperties buildProperties;
 
-    @GetMapping("/metrics")
     public Map<String, Object> getMetrics() {
         Map<String, Object> metrics = new LinkedHashMap<>();
 
-        metrics.put("app", getAppInfo());
         metrics.put("system", getSystemMetrics());
         metrics.put("memory", getMemoryMetrics());
         metrics.put("threads", getThreadMetrics());
@@ -40,16 +37,6 @@ public class MetricsController {
         metrics.put("actuatorMetrics", meterRegistry.getMeters().size());
 
         return metrics;
-    }
-
-    private Map<String, Object> getAppInfo() {
-        return Map.of(
-                "name", Optional.ofNullable(buildProperties).map(BuildProperties::getName).orElse("Stock Service"),
-                "version", Optional.ofNullable(buildProperties).map(BuildProperties::getVersion).orElse("1.0.0"),
-                "startedAt", startTime.toString(),
-                "currentTime", Instant.now().toString(),
-                "uptimeSeconds", (Instant.now().getEpochSecond() - startTime.getEpochSecond())
-        );
     }
 
     private Map<String, Object> getSystemMetrics() {
@@ -127,4 +114,5 @@ public class MetricsController {
 
         return disks;
     }
+
 }
