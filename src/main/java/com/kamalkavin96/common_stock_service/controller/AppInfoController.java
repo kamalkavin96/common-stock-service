@@ -1,6 +1,7 @@
 package com.kamalkavin96.common_stock_service.controller;
 
 import com.kamalkavin96.common_stock_service.service.MetricsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,11 +14,10 @@ import java.util.Map;
 public class AppInfoController {
 
     private final Instant startTime = Instant.now();
-    private final MetricsService metricsService;
 
-    public AppInfoController(MetricsService metricsService){
-        this.metricsService = metricsService;
-    }
+    @Autowired
+    private MetricsService metricsService;
+
 
     @GetMapping("/info")
     public Map<String, Object> getInfo() {

@@ -28,7 +28,4 @@ public class CommonStockAutoConfiguration {
         return new AppInfoController();
     }
 
-    @Bean
-    @ConditionalOnMissingBean
-    public MetricsController metricsController(){ return new MetricsController();}
 }
